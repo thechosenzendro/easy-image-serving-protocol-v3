@@ -1,27 +1,17 @@
-basic.forever(function() {
-    let data = []
-    for (let i = 0; i < 25; i++) {
-        data.push(Math.floor(Math.random() * 26))
+let imageData: number[] = []
+let xOfLed = 0
+let yOfLed = 0
+    for (let index = 0; index <= 24; index++) {
+        imageData[index] = Math.random() * 100
     }
-
-    let x = 0;
-    let y = 0;
-    for (let i = 0; i <= data.length - 1; i++) {
-        if (x >= 4) {
-            x = 0
-            y += 1
+    for (let index2 = 0; index2 <= imageData.length - 1; index2++) {
+        if (imageData[index2] != undefined) {
+            led.plotBrightness(xOfLed, yOfLed, imageData[index2])
         }
-        if (data[i] >= 1) {
-            let bright = data[i] * 10
-            led.plotBrightness(x, y, bright)
-        }
-        if (data[i] == 0) {
-            led.unplot(x, y)
-        }
-        if (x != 4) {
-            x += 1;
+        if (xOfLed == 4) {
+            xOfLed = 0
+            yOfLed += 1
+        } else {
+            xOfLed += 1
         }
     }
-    
-    basic.pause(100)
-})
